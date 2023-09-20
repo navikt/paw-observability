@@ -6,5 +6,6 @@ plugins {
 rootProject.name = "paw-observability"
 
 include(
-    "opentelemetry-anonymisering"
+    "opentelemetry-anonymisering",
+    "observability-version-catalog"
 )

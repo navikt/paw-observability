@@ -1,7 +1,10 @@
 plugins {
     kotlin("jvm")
+    `maven-publish`
     `java-library`
 }
+
+group = "no.nav.paw.observability"
 
 repositories {
     mavenCentral()
@@ -10,6 +13,18 @@ repositories {
     }
     maven {
         url = uri("https://jitpack.io")
+    }
+    mavenNav("*")
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            from(components["java"])
+        }
+    }
+    repositories {
+        mavenNav("paw-kotlin-clients")
     }
 }
 
@@ -37,4 +52,16 @@ java {
 tasks.named<Test>("test") {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+}
+
+fun RepositoryHandler.mavenNav(repo: String): MavenArtifactRepository {
+    val githubPassword: String by project
+
+    return maven {
+        setUrl("https://maven.pkg.github.com/navikt/$repo")
+        credentials {
+            username = "x-access-token"
+            password = githubPassword
+        }
+    }
 }
