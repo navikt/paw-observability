@@ -6,17 +6,6 @@ plugins {
 group = "no.nav.paw.observability"
 version = "1.0"
 
-repositories {
-    mavenCentral()
-    maven {
-        url = uri("https://packages.confluent.io/maven/")
-    }
-    maven {
-        url = uri("https://jitpack.io")
-    }
-    mavenNav("*")
-}
-
 publishing {
     publications {
         create<MavenPublication>("maven") {
@@ -24,18 +13,24 @@ publishing {
         }
     }
     repositories {
-        mavenNav("paw-observability")
-        mavenLocal()
+        maven {
+            val mavenRepo: String by project
+            val githubPassword: String by project
+            setUrl("https://maven.pkg.github.com/navikt/$mavenRepo")
+            credentials {
+                username = "x-access-token"
+                password = githubPassword
+            }
+        }
     }
 }
 
 
-
+val openTelemetryVersion: String by project
 catalog {
     versionCatalog {
         val ktorVersion = "2.3.4"
         val micrometerVersion = "1.11.4"
-        val openTelemetryVersion = "1.30.0"
         version("ktor", ktorVersion)
         version("micrometer", micrometerVersion)
         version("openTelemetry", openTelemetryVersion)
@@ -82,17 +77,5 @@ catalog {
             )
         )
 
-    }
-}
-
-fun RepositoryHandler.mavenNav(repo: String): MavenArtifactRepository {
-    val githubPassword: String by project
-
-    return maven {
-        setUrl("https://maven.pkg.github.com/navikt/$repo")
-        credentials {
-            username = "x-access-token"
-            password = githubPassword
-        }
     }
 }
