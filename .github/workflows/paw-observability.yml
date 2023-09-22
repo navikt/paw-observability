@@ -24,4 +24,4 @@ jobs:
         working-directory: ./
         run: ./gradlew build test publish
         env:
-          ORG_GRADLE_PROJECT_githubPassword: ${{ secrets.GITHUB_TOKEN }}
+          githubPassword: ${{ secrets.GITHUB_TOKEN }}
