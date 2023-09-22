@@ -4,7 +4,6 @@ plugins {
 }
 
 group = "no.nav.paw.observability"
-version = "1.0"
 
 publishing {
     publications {
