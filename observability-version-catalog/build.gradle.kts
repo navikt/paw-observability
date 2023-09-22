@@ -15,10 +15,11 @@ publishing {
     repositories {
         maven {
             val mavenRepo: String by project
+            val githubPassword: String by project
             setUrl("https://maven.pkg.github.com/navikt/$mavenRepo")
             credentials {
                 username = "x-access-token"
-                password = providers.environmentVariable("githubPassword").get()
+                password = githubPassword
             }
         }
     }
