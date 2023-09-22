@@ -1,6 +1,9 @@
 # paw-observability
 Komponenter som brukes i forbindelse med tracing og metrics.
 
+# Viktig!
+Avhengig av loggnivå kan Opentelemetry logge data slik den ser ut *før* maskeringssteget. Det er derfor viktig å bruke en løsning for maskering av loggene også!
+
 ## OpenTelemetry Anonymisering
 Denne komponenten fungerer som en wrapper til 'OtlpSpanExporterProvider' og kan brukes sammen med openTelemetry-java-agent for å anonymisere data som samles inn før den sendes videre. Nåværende versjon er relativ enkel og maskerer all tall på 11 siffer i "attributes" listen som eksporteres.
 Komponenten kan brukes sammen med opentelemetry-javaagent. Den må da lastes sammen med agenten under oppstart, se eksempel under:
