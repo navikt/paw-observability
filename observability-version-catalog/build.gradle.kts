@@ -28,8 +28,8 @@ publishing {
 val openTelemetryVersion: String by project
 catalog {
     versionCatalog {
-        val ktorVersion = "2.3.4"
-        val micrometerVersion = "1.11.4"
+        val ktorVersion = "2.3.5"
+        val micrometerVersion = "1.11.5"
         version("ktor", ktorVersion)
         version("micrometer", micrometerVersion)
         version("openTelemetry", openTelemetryVersion)
@@ -47,10 +47,18 @@ catalog {
         val openTelemetryKtor = "openTelemetryKtor"
         val openTelemetrySemcov = "openTelemetrySemcov"
         val micrometerRegistryPrometheus = "micrometerRegistryPrometheus"
+        val ktorServerAuth = "ktor-server-auth"
+        val ktorServerContentNegotiation = "ktorServerContentNegotiation"
+        val ktorServerJackson = "ktorServerJackson"
 
         library(ktorServerCore, "$ktorGroup:ktor-server-core:$ktorVersion")
         library(ktorServerNetty, "$ktorGroup:ktor-server-netty:$ktorVersion")
         library(ktorServerCoreJvm, "$ktorGroup:ktor-server-core-jvm:$ktorVersion")
+
+        library(ktorServerAuth, "$ktorGroup:ktor-server-auth:$ktorVersion")
+        library(ktorServerContentNegotiation, "$ktorGroup:ktor-server-content-negotiation:$ktorVersion")
+        library(ktorServerJackson, "$ktorGroup:ktor-serialization-jackson:$ktorVersion")
+
         library(ktorMetricsMicrometer, "$ktorGroup:ktor-server-metrics-micrometer:$ktorVersion")
 
         library(openTelemetryApi, "$openTelemetryGroup:opentelemetry-api:$openTelemetryVersion")
