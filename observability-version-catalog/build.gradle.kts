@@ -28,8 +28,8 @@ publishing {
 val openTelemetryVersion: String by project
 catalog {
     versionCatalog {
-        val ktorVersion = "2.3.6"
-        val micrometerVersion = "1.11.5"
+        val ktorVersion = "2.3.8"
+        val micrometerVersion = "1.12.3"
         version("ktor", ktorVersion)
         version("micrometer", micrometerVersion)
         version("openTelemetry", openTelemetryVersion)
