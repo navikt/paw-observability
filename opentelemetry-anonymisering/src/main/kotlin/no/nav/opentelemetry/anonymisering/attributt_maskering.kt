@@ -5,17 +5,26 @@ import io.opentelemetry.api.common.Attributes
 import io.opentelemetry.api.common.AttributesBuilder
 import java.util.function.BiConsumer
 
+private val alwaysMaskAttributes = setOf(
+    "messaging.kafka.message.key"
+)
+
 fun masker(verdier: Attributes): Attributes = MaskerteVerdier(verdier)
 
 fun masker(nøkkel: AttributeKey<*>, verdi: Any): Pair<AttributeKey<*>, Any> {
     val maskertVerdi = masker(verdi)
-    return if (maskertVerdi != verdi.toString()) {
-        AttributeKey.stringKey(nøkkel.key) to maskertVerdi
-    } else {
-        nøkkel to verdi
+    return when {
+        maskertVerdi != verdi.toString() -> {
+            AttributeKey.stringKey(nøkkel.key) to maskertVerdi
+        }
+        nøkkel.key in alwaysMaskAttributes -> {
+            AttributeKey.stringKey(nøkkel.key) to "*"
+        }
+        else -> {
+            nøkkel to verdi
+        }
     }
 }
-
 
 private class MaskerteVerdier(kilde: Attributes) : Attributes {
     private val maskerteVerdier = kilde.asMap()

@@ -39,7 +39,8 @@ class MaskerendeSpanExporterTest: StringSpec({
             override fun getStartEpochNanos(): Long = System.nanoTime()
             override fun getAttributes(): Attributes = Attributes.of(
                 AttributeKey.longKey("fødselsnummer"), 12345678901,
-                AttributeKey.stringKey("no_annet"), "353214"
+                AttributeKey.stringKey("no_annet"), "353214",
+                AttributeKey.stringKey("messaging.kafka.message.key"), "1234"
             )
             override fun getEvents(): MutableList<EventData> = mutableListOf()
             override fun getLinks(): MutableList<LinkData> = mutableListOf()
@@ -57,11 +58,12 @@ class MaskerendeSpanExporterTest: StringSpec({
         exporter.export(mutableListOf(originalSpan))
         spans.size shouldBe 1
         spans.forEach{ spanData ->
-            spanData.attributes.size() shouldBe 2
+            spanData.attributes.size() shouldBe 3
             spanData.attributes.forEach{ nøkkel, verdi ->
                 when (nøkkel.key) {
                     "fødselsnummer" -> verdi shouldBe "***********"
                     "no_annet" -> verdi shouldBe "353214"
+                    "messaging.kafka.message.key" -> verdi shouldBe "*"
                     else -> fail { "uventet nøkkel: $nøkkel" }
                 }
             }
