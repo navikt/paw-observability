@@ -25,14 +25,17 @@ publishing {
 }
 
 
-val openTelemetryVersion: String by project
+val openTelemetryInstrumentationVersion: String by project
+val openTelemetrySdkTarget: String by project
+
 catalog {
     versionCatalog {
         val ktorVersion = "2.3.8"
         val micrometerVersion = "1.12.3"
         version("ktor", ktorVersion)
         version("micrometer", micrometerVersion)
-        version("openTelemetry", openTelemetryVersion)
+        version("openTelemetryInstrumentation", openTelemetryInstrumentationVersion)
+        version("openTelemetrySdkTarget", openTelemetrySdkTarget)
 
         val ktorGroup = "io.ktor"
         val micrometerGroup = "io.micrometer"
@@ -61,13 +64,13 @@ catalog {
 
         library(ktorMetricsMicrometer, "$ktorGroup:ktor-server-metrics-micrometer:$ktorVersion")
 
-        library(openTelemetryApi, "$openTelemetryGroup:opentelemetry-api:$openTelemetryVersion")
-        library(openTelemetryExporterOltp, "$openTelemetryGroup:opentelemetry-exporter-oltp:$openTelemetryVersion")
+        library(openTelemetryApi, "$openTelemetryGroup:opentelemetry-api:$openTelemetrySdkTarget")
+        library(openTelemetryExporterOltp, "$openTelemetryGroup:opentelemetry-exporter-oltp:$openTelemetrySdkTarget")
         library(
             openTelemetryKtor,
-            "${openTelemetryGroup}.instrumentation:opentelemetry-ktor-2.0:$openTelemetryVersion-alpha"
+            "${openTelemetryGroup}.instrumentation:opentelemetry-ktor-2.0:$openTelemetryInstrumentationVersion-alpha"
         )
-        library(openTelemetrySemcov, "$openTelemetryGroup:opentelemetry-semcov:$openTelemetryVersion")
+        library(openTelemetrySemcov, "$openTelemetryGroup:opentelemetry-semcov:$openTelemetrySdkTarget")
 
         library(micrometerRegistryPrometheus, "$micrometerGroup:micrometer-registry-prometheus:$micrometerVersion")
 

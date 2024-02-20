@@ -9,12 +9,14 @@ repositories {
     mavenCentral()
 }
 
-val openTelemetryVersion: String by project
+val openTelemetryInstrumentationVersion: String by project
+val openTelemetrySdkTarget: String by project
+
 publishing {
     publications {
         create<MavenPublication>("maven") {
             from(components["kotlin"])
-            artifactId = "$artifactId-$openTelemetryVersion"
+            artifactId = "$artifactId-$openTelemetryInstrumentationVersion"
         }
     }
     repositories {
@@ -31,14 +33,14 @@ publishing {
 }
 
 dependencies {
-    compileOnly("io.opentelemetry:opentelemetry-exporter-otlp:$openTelemetryVersion")
-    compileOnly("io.opentelemetry:opentelemetry-sdk-trace:$openTelemetryVersion")
-    compileOnly("io.opentelemetry:opentelemetry-sdk-extension-autoconfigure-spi:$openTelemetryVersion")
+    compileOnly("io.opentelemetry:opentelemetry-exporter-otlp:$openTelemetrySdkTarget")
+    compileOnly("io.opentelemetry:opentelemetry-sdk-trace:$openTelemetrySdkTarget")
+    compileOnly("io.opentelemetry:opentelemetry-sdk-extension-autoconfigure-spi:$openTelemetrySdkTarget")
     testImplementation("io.kotest:kotest-runner-junit5:5.7.2")
     testImplementation("io.kotest:kotest-assertions-core:5.7.2")
-    testImplementation("io.opentelemetry:opentelemetry-exporter-otlp:$openTelemetryVersion")
-    testImplementation("io.opentelemetry:opentelemetry-sdk-trace:$openTelemetryVersion")
-    testImplementation("io.opentelemetry:opentelemetry-sdk-extension-autoconfigure-spi:$openTelemetryVersion")
+    testImplementation("io.opentelemetry:opentelemetry-exporter-otlp:$openTelemetrySdkTarget")
+    testImplementation("io.opentelemetry:opentelemetry-sdk-trace:$openTelemetrySdkTarget")
+    testImplementation("io.opentelemetry:opentelemetry-sdk-extension-autoconfigure-spi:$openTelemetrySdkTarget")
 }
 
 java {
