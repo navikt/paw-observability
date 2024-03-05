@@ -11,6 +11,7 @@ repositories {
 
 val openTelemetryInstrumentationVersion: String by project
 val openTelemetrySdkTarget: String by project
+val kotestVersion: String by project
 
 publishing {
     publications {
@@ -36,8 +37,8 @@ dependencies {
     compileOnly("io.opentelemetry:opentelemetry-exporter-otlp:$openTelemetrySdkTarget")
     compileOnly("io.opentelemetry:opentelemetry-sdk-trace:$openTelemetrySdkTarget")
     compileOnly("io.opentelemetry:opentelemetry-sdk-extension-autoconfigure-spi:$openTelemetrySdkTarget")
-    testImplementation("io.kotest:kotest-runner-junit5:5.7.2")
-    testImplementation("io.kotest:kotest-assertions-core:5.7.2")
+    testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
+    testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
     testImplementation("io.opentelemetry:opentelemetry-exporter-otlp:$openTelemetrySdkTarget")
     testImplementation("io.opentelemetry:opentelemetry-sdk-trace:$openTelemetrySdkTarget")
     testImplementation("io.opentelemetry:opentelemetry-sdk-extension-autoconfigure-spi:$openTelemetrySdkTarget")
