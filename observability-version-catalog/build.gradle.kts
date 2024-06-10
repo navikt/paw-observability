@@ -30,8 +30,8 @@ val openTelemetrySdkTarget: String by project
 
 catalog {
     versionCatalog {
-        val ktorVersion = "2.3.9"
-        val micrometerVersion = "1.12.3"
+        val ktorVersion = "2.3.11"
+        val micrometerVersion = "1.13.0"
         version("ktor", ktorVersion)
         version("micrometer", micrometerVersion)
         version("openTelemetryInstrumentation", openTelemetryInstrumentationVersion)
